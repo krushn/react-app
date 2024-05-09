@@ -4,7 +4,7 @@ import './Login.scss';
 import { AppContext, loggedIn } from '../../../State';
 import { basicAuth } from '../../../services/auth.service';
 import router from '../../../router';
-
+/*
 function Login() {
 
     const { state, dispatch } = useContext(AppContext)
@@ -44,7 +44,8 @@ function Login() {
     async function onSubmit(e) {
           
         e.preventDefault(); 
-    
+        e.stopPropagation();
+        
         try {
             await validationSchema.validate(formData);
         } catch (err) {
@@ -54,7 +55,7 @@ function Login() {
                 alert(err.errors.join("\n"));
             } else {
                 // The form data is valid, do something with it
-            }*/
+            }*
 
             return setFormData(prevState => ({
                 ...prevState,
@@ -95,7 +96,7 @@ function Login() {
 
             {formData.errors.map((error) => <Error key={error} message={error}></Error>)}
 
-            <form onSubmit={onSubmit} no-validate>
+            <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label>Email address</label>
                     <input type="email" name="email" onChange={handleChange}  className="form-control" placeholder="Enter email" />
@@ -111,5 +112,8 @@ function Login() {
             </form>
         </div>
     )
+}
+*/
+function Login() {
 }
 export default Login; 

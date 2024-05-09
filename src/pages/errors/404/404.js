@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 function Error404() {
     return (
         <div className="d-flex justify-content-center 
@@ -9,6 +11,8 @@ function Error404() {
                     Sorry, the page you are looking
                     for does not exist.
                 </p>
+
+                <NavLink to="/app">Home</NavLink>
             </div>
         </div>
     );

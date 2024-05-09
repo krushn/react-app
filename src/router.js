@@ -1,5 +1,5 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
-import App from './pages/login/home/App';
+//import App from './pages/login/home/App';
 import Login from './pages/start-ups/login/Login';
 //import Error404 from './pages/errors/404/404';
 import Error500 from './pages/errors/500/500';
@@ -7,12 +7,15 @@ import React, { Suspense } from 'react';
 
 //lazy load route
 const Error404 = React.lazy(() => import('./pages/errors/404/404'));
+const App = React.lazy(() => import('./pages/login/app/App'));
+const Home = React.lazy(() => import('./pages/login/home/Home'));
 
 const router = createBrowserRouter([
     {
       path: "/",
-      element: <Navigate to="/app" replace />
+      element: <Suspense fallback="..."><Home /></Suspense> 
     },
+
     {
       path: "/app",
       element: <Suspense fallback="..."><App /></Suspense>,
@@ -33,7 +36,8 @@ const router = createBrowserRouter([
       path: "/*",
       element: <Suspense fallback="..."><Error404 /></Suspense>
     },
-  ]);
+]);
 
 export default router;
   
+//<Navigate to="/app" replace />

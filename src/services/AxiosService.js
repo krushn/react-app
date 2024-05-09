@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { logout } from '../State';
+//import { logout } from '../State';
 import router from '../router';
 
 //https://axios-http.com/docs/req_config
@@ -53,7 +53,7 @@ export async function handleAxiosError(err) {
 
     // Handle Expired Session Error
     if (response.status === 401) { 
-        logout();
+       // logout();
         router.navigate('/login'); 
     }
 

@@ -1,16 +1,46 @@
 import React, { createContext, useReducer } from "react";
 
-const initialState = {
-    isLoggedIn: window.localStorage.getItem('token') || false
-}
+const tasks = window.localStorage.getItem('tasks');
 
-let reducer = (state, action) => {
+const initialState = {
+    isLoggedIn: window.localStorage.getItem('token') || false,
+    tasks:  tasks? JSON.parse(tasks) : []
+}
+ 
+const reducer = (state, action) => {
 
     switch (action.type) {
 
         case "SET_STATE": {
             let a = { ...state, ...action.data };
             return a; 
+        }
+
+        case "MARK_DONE_TASK": {
+            state.tasks[action.data['index']].status = 1;
+            window.localStorage.setItem('tasks', JSON.stringify(state.tasks))
+           return { ...state };
+        }
+
+        case "MARK_UNDONE_TASK": {
+            state.tasks[action.data['index']].status = 0;
+            window.localStorage.setItem('tasks', JSON.stringify(state.tasks))
+            return { ...state };
+        }
+
+        case "REMOVE_TASK": {
+            //state.tasks.splice(action.data['index'], 1); 
+            state.tasks = state.tasks.filter((_, i) => i != action.data['index'])
+            window.localStorage.setItem('tasks', JSON.stringify(state.tasks))
+            return {
+                ...state
+            }; 
+        }
+
+        case "ADD_TASK": {
+            state.tasks.push(action.data); 
+            window.localStorage.setItem('tasks', JSON.stringify(state.tasks))
+            return state; 
         }
 
         case 'LOGOUT': {
@@ -21,9 +51,7 @@ let reducer = (state, action) => {
         }
 
         case "SET_TOKEN": {
-
-            console.log(action,state);
-
+ 
             window.localStorage.setItem("token", action.data.token);
 
             return {
@@ -64,7 +92,29 @@ export const setState = (data) => ({
     type: 'SET_STATE'
 });
 
+export const markDoneTask = (data) => ({
+    data: data,
+    type: 'MARK_DONE_TASK'
+});
+
+export const markUnDoneTask = (data) => ({
+    data: data,
+    type: 'MARK_UNDONE_TASK'
+});
+
+export const removeTask = (data) => ({
+    data: data,
+    type: 'REMOVE_TASK'
+});
+
+export const addTask = (data) => ({
+    data: data,
+    type: 'ADD_TASK'
+});
+
 export const loggedIn = (data) => ({
     data: data,
     type: 'SET_TOKEN', 
 });
+
+ 
